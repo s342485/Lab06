@@ -4,10 +4,6 @@ from model.model import Autonoleggio
 from UI.view import View
 from UI.controller import Controller
 
-'''
-DA ESEGUIRE
-'''
-
 def main(page: ft.Page):
     my_model = Autonoleggio("Polito Rent", "Alessandro Visconti")
     my_view = View(page)

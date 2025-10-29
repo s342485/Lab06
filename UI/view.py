@@ -1,4 +1,6 @@
 import flet as ft
+from contourpy import as_line_type
+
 from UI.alert import AlertManager
 
 '''
@@ -63,7 +65,10 @@ class View:
         pulsante_conferma_responsabile = ft.ElevatedButton("Conferma", on_click=self.controller.conferma_responsabile)
 
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
-        # TODO
+        pulsante_mostra = ft.ElevatedButton("Mostra")
+        pulsante_cerca = ft.ElevatedButton("Cerca")
+
+        scritta = ft.Text("Automobili", size=15)
 
         # --- LAYOUT ---
         self.page.add(
@@ -82,10 +87,12 @@ class View:
             ft.Divider(),
 
             # Sezione 3
-            # TODO
+            ft.Row(spacing=10,controls=[scritta,pulsante_mostra]),
+            ft.Divider(),
 
             # Sezione 4
-            # TODO
+            ft.Text("Cerca Automobile", size = 20),
+            ft.Row(spacing=10,controls=[self.input_modello_auto,pulsante_cerca])
         )
 
     def cambia_tema(self, e):
