@@ -39,6 +39,10 @@ class View:
     def update(self):
         self.page.update()
 
+    def click_cerca(self, e):
+        modello = self.input_modello_auto.value.strip() #metto il strip cosi prende il valore aggiornato di modello ogni volta
+        self.controller.handler_ricerca_per_modello(e, modello)
+
     def load_interface(self):
         """ Crea e aggiunge Elementi di UI alla pagina e la aggiorna. """
         self.txt_titolo = ft.Text(value=self.controller.get_nome(), size=38, weight=ft.FontWeight.BOLD)
@@ -56,6 +60,7 @@ class View:
 
         # TextField per ricerca auto per modello
         self.input_modello_auto = ft.TextField(label="Modello")
+        input_modello = self.input_modello_auto.value #leggo ciò che viene scritto
 
         # ListView per mostrare il risultato della ricerca auto per modello
         self.lista_auto_ricerca = ft.ListView(expand=True, spacing=5, padding=10, auto_scroll=True)
@@ -65,8 +70,8 @@ class View:
         pulsante_conferma_responsabile = ft.ElevatedButton("Conferma", on_click=self.controller.conferma_responsabile)
 
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
-        pulsante_mostra = ft.ElevatedButton("Mostra")
-        pulsante_cerca = ft.ElevatedButton("Cerca")
+        pulsante_mostra = ft.ElevatedButton("Mostra", on_click= self.controller.handler_mostra_automobili)
+        pulsante_cerca = ft.ElevatedButton("Cerca", on_click=self.click_cerca)
 
         scritta = ft.Text("Automobili", size=15)
 
@@ -88,11 +93,13 @@ class View:
 
             # Sezione 3
             ft.Row(spacing=10,controls=[scritta,pulsante_mostra]),
+            self.lista_auto,
             ft.Divider(),
 
             # Sezione 4
             ft.Text("Cerca Automobile", size = 20),
-            ft.Row(spacing=10,controls=[self.input_modello_auto,pulsante_cerca])
+            ft.Row(spacing=10,controls=[self.input_modello_auto,pulsante_cerca]),
+            self.lista_auto_ricerca
         )
 
     def cambia_tema(self, e):
